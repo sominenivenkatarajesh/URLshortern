@@ -7,8 +7,6 @@ if ($conn->connect_error) {
 $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 $perPage = 25;
 $offset = ($page - 1) * $perPage;
-
-// Fetch records
 $stmt = $conn->prepare("
     SELECT SQL_CALC_FOUND_ROWS id, short_code, title 
     FROM urls 
@@ -37,7 +35,6 @@ body {
     padding:30px;
 }
 
-/* Glass card */
 .card {
     max-width: 900px;
     margin: auto;
@@ -48,7 +45,6 @@ body {
     box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 }
 
-/* Title */
 .card h2 {
     color: #ffe066;
     font-size: 28px;
@@ -73,7 +69,6 @@ li:hover {
     background: rgba(0,0,0,0.55);
 }
 
-/* Link title */
 a.title {
     color: #ffe066;
     font-size: 17px;
@@ -81,7 +76,6 @@ a.title {
     text-decoration: none;
 }
 
-/* Delete button */
 .delete-btn {
     color: #ff6b6b;
     font-size: 15px;
@@ -92,7 +86,6 @@ a.title {
     color: #ff4747;
 }
 
-/* Pagination */
 .pagination {
     text-align: center;
     margin-top: 18px;
@@ -108,7 +101,6 @@ a.title {
     text-decoration: underline;
 }
 
-/* Back Link */
 .back-btn {
     display: block;
     margin-top: 20px;
@@ -129,14 +121,13 @@ a.title {
         <?php if ($res && $res->num_rows > 0): ?>
             <?php while ($r = $res->fetch_assoc()): ?>
                 <li>
-                    <!-- Clickable title -->
+                   
                     <a class="title"
                         href="redirect.php?c=<?php echo urlencode($r['short_code']); ?>"
                         target="_blank">
                         <?php echo htmlspecialchars($r['title']); ?>
                     </a>
 
-                    <!-- Delete button -->
                     <a class="delete-btn"
                        href="delete.php?id=<?php echo $r['id']; ?>"
                        onclick="return confirm('Delete this link?');">
@@ -149,7 +140,6 @@ a.title {
         <?php endif; ?>
     </ul>
 
-    <!-- Pagination -->
     <div class="pagination">
         <?php if ($page > 1): ?>
             <a href="?page=<?php echo $page-1; ?>">&laquo; Prev</a>
