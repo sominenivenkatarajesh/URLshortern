@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Smart URL Shortener</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #6a85ff, #9e62ff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        width: 420px;
+        background: #0d1026;
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        text-align: center;
+        animation: fadeIn .5s ease;
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0; transform: scale(.95);}
+        to {opacity: 1; transform: scale(1);}
+    }
+
+    h1 {
+        color: #facc15;
+        font-size: 26px;
+        margin-bottom: 25px;
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        margin: 12px 0;
+        border-radius: 10px;
+        background: #ffffff;
+        border: none;
+        font-size: 14px;
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 10px;
+        background: #facc15;
+        border: none;
+        color: #000;
+        font-weight: bold;
+        font-size: 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    button:hover {
+        background: #ffdd33;
+    }
+
+    .result {
+        margin-top: 15px;
+        padding: 12px;
+        background: #141832;
+        border-radius: 8px;
+        color: #fff;
+        min-height: 20px;
+        font-size: 14px;
+    }
+
+    .history {
+        background: #111529;
+        margin-top: 25px;
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    .history h3 {
+        color: #facc15;
+        margin-bottom: 12px;
+        font-size: 20px;
+    }
+
+    .history ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .history li {
+        background: #1a1f3a;
+        padding: 12px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        transition: 0.2s;
+    }
+
+    .history li:hover {
+        background: #21294d;
+    }
+
+    .history a {
+        color: #ffdd57;
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+    .history-footer {
+        margin-top: 12px;
+        text-align: center;
+    }
+
+    .history-footer a {
+        color: #facc15;
+        font-size: 14px;
+        text-decoration: none;
+    }
+</style>
+
+
+</head>
+
+
+<body>
+  <div class="container">
+    <h1>Smart URL Shortener</h1>
+
+    <form method="POST" autocomplete="off">
+      <input type="text" name="name" placeholder="Name for this link" required>
+      <input type="text" name="longUrl" placeholder="Enter long URL" required>
+      <button type="submit">Shorten URL</button>
+    </form>
+
+    <div class="result"><?php echo $resultMessage; ?></div>
+
+    <div class="history">
+      <h3>Recent Links</h3>
+      <ul>
+        <?php if (count($recent) === 0): ?>
+          <li>No history yet.</li>
+        <?php else: ?>
+          <?php foreach ($recent as $row): ?>
+            <li>
+              <a href="redirect.php?c=<?php echo urlencode($row['short_code']); ?>" target="_blank">
+                <?php echo htmlspecialchars($row['title']); ?>
+              </a>
+            </li>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </ul>
+
+      <div class="history-footer">
+        <a href="history.php">📜 Full History</a>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
