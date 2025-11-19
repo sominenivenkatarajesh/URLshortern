@@ -55,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// Fetch top 4 recent
 $historyQ = $conn->query("SELECT id, short_code, title, long_url FROM urls ORDER BY id DESC LIMIT 4");
 if ($historyQ) {
     while ($r = $historyQ->fetch_assoc()) {
@@ -97,8 +96,6 @@ body {
     border-radius:22px;
     box-shadow:0 10px 40px rgba(0,0,0,.5);
 }
-
-/* FIX: Inputs full width + no overflow */
 input {
     width:100%;
     padding:15px;
@@ -109,7 +106,6 @@ input {
     box-sizing:border-box;
 }
 
-/* FIX: Button fits perfectly */
 button {
     width:100%;
     padding:16px;
